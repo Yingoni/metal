@@ -5,18 +5,47 @@
 
 
 <mapper namespace="com.bs.metal.Dao.UserDAO">
-<select id="selectNameCount" parameterType="string" resultType="int">
-    select count(0) from user where username = #{name};
-</select>
+    <!--用户resultMap-->
+    <resultMap id="userMap" type="user">
+        <id column="id" property="id"/>
+        <result column="username" property="userName"/>
+        <result column="password" property="password"/>
+        <result column="sex" property="sex"/>
+        <result column="user_img" property="userImg"/>
+        <result column="email" property="email"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
 
-    <insert id="saveUser" >
-        insert into user(username,userpw,sex,institude,email,researchArea,type)
-values (#{userName},#{userPw},#{sex},#{institude},#{email},#{researchArea},#{type});
+    <!--根据用户名查询数量-->
+    <select id="selectNameCount" parameterType="string" resultType="int">
+        select count(0)
+        from user
+        where username = #{name};
+    </select>
+    <!--保存新用户:头像尚未开发-->
+    <insert id="saveUser">
+        insert into user(username,
+                         password,
+                         create_time
+                         )
+        values (#{userName},
+                #{password},
+                #{createTime}
+                );
 
 
     </insert>
-
+    <!--根据用户名查询用户-->
     <select id="selectName" resultType="com.bs.metal.entity.User">
-        select id,username,sex,institude,email,researchArea,type from user where username=#{userName};
+        select id,
+               username,
+               sex,
+               user_img,
+               email,
+               create_time,
+               update_time
+        from user
+        where username = #{userName};
     </select>
 </mapper>

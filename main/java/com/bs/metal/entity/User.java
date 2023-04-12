@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 
 /**
  * 用户类
@@ -12,27 +14,27 @@ import lombok.NoArgsConstructor;
 @Data //自动生成成员变量的set和get方法
 @NoArgsConstructor//无参构造函数
 @AllArgsConstructor//所有有参构造函数
-public class User  {
+public class User {
     private Integer id;
     private String userName;
-    private String userPw;
+    private String password;
     private String sex;
-    private String institude;
+    private String userImg;
     private String email;
-    private String researchArea;
-    private String type;
+    private Date createTime;
+    private Date updateTime;
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", userName='" + userName + '\'' +
-                ", userPw='" + userPw + '\'' +
+                ", password='" + password + '\'' +
                 ", sex='" + sex + '\'' +
-                ", institude='" + institude + '\'' +
+                ", userImg='" + userImg + '\'' +
                 ", email='" + email + '\'' +
-                ", researchArea='" + researchArea + '\'' +
-                ", type='" + type + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
                 '}';
     }
 }

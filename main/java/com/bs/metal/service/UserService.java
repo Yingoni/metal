@@ -1,10 +1,12 @@
 package com.bs.metal.service;
 
-import com.bs.metal.common.Result;
+import com.bs.metal.common.vo.ResultVO;
 import com.bs.metal.entity.User;
 
 public interface UserService {
 
-    User add(User user);
-
+    //用户注册
+    ResultVO toRegister(String name ,String password);
+    //用户登录
+    ResultVO checkLogin(String name,String password);
 }

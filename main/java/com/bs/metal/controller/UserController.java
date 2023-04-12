@@ -1,6 +1,6 @@
 package com.bs.metal.controller;
 
-import com.bs.metal.common.Result;
+import com.bs.metal.common.vo.ResultVO;
 import com.bs.metal.entity.User;
 import com.bs.metal.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -24,15 +24,15 @@ public class UserController {
      * @param request
      * @return
      */
-    @PostMapping("/metal/register")
-    public Result<User> register(@RequestBody User user, HttpServletRequest request){
+   /* @PostMapping("/metal/register")
+    public ResultVO<User> register(@RequestBody User user, HttpServletRequest request){
         if (StringUtils.isEmpty(user.getUserName()) ||StringUtils.isEmpty(user.getUserPw())){
-            return Result.error("2003", "账号或密码为空");
+            return ResultVO.error("2003", "账号或密码为空");
         }
         User register = userService.add(user);
         HttpSession session = request.getSession();
         session.setAttribute("USER",register);
         session.setMaxInactiveInterval(60*60*24);
-        return Result.success(register);
-    }
+        return ResultVO.success(register);
+    }*/
 }
