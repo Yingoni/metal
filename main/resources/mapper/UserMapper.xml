@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.bs.metal.Dao.UserDAO">
+<select id="selectNameCount" parameterType="string" resultType="int">
+    select count(0) from user where username = #{name};
+</select>
+
+    <insert id="saveUser" >
+        insert into user(username,userpw,sex,institude,email,researchArea,type)
+values (#{userName},#{userPw},#{sex},#{institude},#{email},#{researchArea},#{type});
+
+
+    </insert>
+
+    <select id="selectName" resultType="com.bs.metal.entity.User">
+        select id,username,sex,institude,email,researchArea,type from user where username=#{userName};
+    </select>
+</mapper>

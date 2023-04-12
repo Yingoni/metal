@@ -1,0 +1,29 @@
+#端口号
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+#数据源
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+    url: jdbc:mysql://localhost:3306/corrosion?serverTimezone=Asia/Chongqing&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
+
+    username: root
+    password: 123456
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 3
+      maximum-pool-size: 100
+      connection-timeout: 3000
+
+
+#mybatis
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+  type-aliases-package: com.bs.metal.entity
