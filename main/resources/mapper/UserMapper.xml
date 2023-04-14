@@ -6,7 +6,7 @@
 
 <mapper namespace="com.bs.metal.Dao.UserDAO">
     <!--用户resultMap-->
-    <resultMap id="userMap" type="user">
+    <resultMap id="userMap" type="com.bs.metal.entity.User">
         <id column="id" property="id"/>
         <result column="username" property="userName"/>
         <result column="password" property="password"/>

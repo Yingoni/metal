@@ -21,18 +21,20 @@ public class UserController {
     /**
      *注册
      * @param user
-     * @param request
      * @return
      */
-   /* @PostMapping("/metal/register")
-    public ResultVO<User> register(@RequestBody User user, HttpServletRequest request){
-        if (StringUtils.isEmpty(user.getUserName()) ||StringUtils.isEmpty(user.getUserPw())){
-            return ResultVO.error("2003", "账号或密码为空");
-        }
-        User register = userService.add(user);
-        HttpSession session = request.getSession();
-        session.setAttribute("USER",register);
-        session.setMaxInactiveInterval(60*60*24);
-        return ResultVO.success(register);
-    }*/
+    @PostMapping("/metal/register")
+    public ResultVO register(@RequestBody User user){
+        ResultVO resultVO = userService.toRegister(user);
+        return resultVO;
+    }
+
+    @GetMapping("/metal/login")
+    public ResultVO toLogin(@RequestParam(value = "username",required = true) String username ,
+                            @RequestParam(value = "password",required = true) String password){
+        ResultVO resultVO = userService.checkLogin(username, password);
+        return resultVO;
+    }
+
+
 }

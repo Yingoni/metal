@@ -25,7 +25,16 @@ public class CheckTokenInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response, Object handler) throws Exception {
-            //从请求参数中获取token
+      /*  //放行options请求
+        String method = request.getMethod();
+        if ("OPTIONS".equalsIgnoreCase(method)){
+            return true;
+        }
+*/
+
+        //从请求头 header中获取token
+        //String token1 = request.getHeader("token");
+        //从请求行  参数中获取token
         String token = request.getParameter("token");
         if (token ==null){
             //提示先登录

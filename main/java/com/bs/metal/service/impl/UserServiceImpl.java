@@ -31,26 +31,25 @@ public class UserServiceImpl implements UserService {
      * spring默认是单例所以可以直接用this
      * synchronization
      *
-     * @param name
-     * @param password
+     *
      * @return
      */
     @Override
     @Transactional //添加事务 mysql默认隔离级别是可重复读
-    public ResultVO toRegister(String name, String password) {
+    public ResultVO toRegister(User user) {
         synchronized (this) {
             //1.查看用户名是否被注册
-            int count = userDAO.selectNameCount(name);
+            int count = userDAO.selectNameCount(user.getUserName());
             if (count > 0) {
                 //返回用户已存在
                 return ResultVO.resultVO(ResultCodeEnum.USER_EXIST_ERROR);
             } else {
                 //2.没被注册，就保存用户
-                User user = new User();
-                user.setUserName(name);
-                user.setPassword(MD5Util.md5(password));
-                user.setCreateTime(new Date());
-                int i = userDAO.saveUser(user);
+                User user1 = new User();
+                user1.setUserName(user.getUserName());
+                user1.setPassword(MD5Util.md5(user.getPassword()));
+                user1.setCreateTime(new Date());
+                int i = userDAO.saveUser(user1);
                 if (i > 0) {
                     return ResultVO.resultVO(ResultCodeEnum.SUCCESS);
                 } else {
@@ -63,14 +62,13 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 用户登录
-     *
-     * @param name
+     * @param username
      * @param password
      * @return
      */
     @Override
-    public ResultVO checkLogin(String name, String password) {
-        User user = userDAO.selectName(name);
+    public ResultVO checkLogin(String username, String password) {
+        User user = userDAO.selectName(username);
         if (user == null) {
             //用户名不存在
             return ResultVO.resultVO(ResultCodeEnum.USER_NAME_ERROR);
