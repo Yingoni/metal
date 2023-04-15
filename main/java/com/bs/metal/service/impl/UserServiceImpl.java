@@ -47,8 +47,10 @@ public class UserServiceImpl implements UserService {
                 //2.没被注册，就保存用户
                 User user1 = new User();
                 user1.setUserName(user.getUserName());
+                user1.setLikeName(user.getUserName());
                 user1.setPassword(MD5Util.md5(user.getPassword()));
                 user1.setCreateTime(new Date());
+                user1.setUpdateTime(new Date());
                 int i = userDAO.saveUser(user1);
                 if (i > 0) {
                     return ResultVO.resultVO(ResultCodeEnum.SUCCESS);

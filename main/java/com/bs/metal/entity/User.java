@@ -15,14 +15,15 @@ import java.util.Date;
 @NoArgsConstructor//无参构造函数
 @AllArgsConstructor//所有有参构造函数
 public class User {
-    private Integer id;
-    private String userName;
-    private String password;
-    private String sex;
-    private String userImg;
-    private String email;
-    private Date createTime;
-    private Date updateTime;
+    private Integer id; //主键  id
+    private String userName;  //用户名
+    private String password; // 密码
+    private String sex;//性别
+    private String likeName; //昵称
+    private Long imgId; // 头像 id
+    private String email; // 邮箱地址
+    private Date createTime; // 创建时间
+    private Date updateTime; //修改时间
 
     @Override
     public String toString() {
@@ -31,7 +32,8 @@ public class User {
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", sex='" + sex + '\'' +
-                ", userImg='" + userImg + '\'' +
+                ", likeName='" + likeName + '\'' +
+                ", imgId=" + imgId +
                 ", email='" + email + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +

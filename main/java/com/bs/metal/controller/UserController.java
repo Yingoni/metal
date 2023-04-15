@@ -29,6 +29,12 @@ public class UserController {
         return resultVO;
     }
 
+    /**
+     * 登录
+     * @param username
+     * @param password
+     * @return
+     */
     @GetMapping("/metal/login")
     public ResultVO toLogin(@RequestParam(value = "username",required = true) String username ,
                             @RequestParam(value = "password",required = true) String password){
