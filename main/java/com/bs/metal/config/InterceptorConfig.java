@@ -23,6 +23,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
         registry.addInterceptor(checkTokenInterception)
                 .addPathPatterns("/*")
-                .excludePathPatterns("/user/**");
+                .excludePathPatterns("/api/metal/user/**")
+                .excludePathPatterns("/api/file/downloadPicture/**")
+                .excludePathPatterns("/api/file/download/**");
     }
 }

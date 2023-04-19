@@ -11,7 +11,7 @@
         <result column="username" property="userName"/>
         <result column="password" property="password"/>
         <result column="sex" property="sex"/>
-        <result column="user_img" property="userImg"/>
+        <result column="img_id" property="imgId"/>
         <result column="email" property="email"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
@@ -27,11 +27,15 @@
     <insert id="saveUser">
         insert into user(username,
                          password,
-                         create_time
+                         likename,
+                         create_time,
+                         update_time
                          )
         values (#{userName},
                 #{password},
-                #{createTime}
+                #{likeName},
+                #{createTime},
+                #{updateTime}
                 );
 
 
@@ -40,12 +44,46 @@
     <select id="selectName" resultType="com.bs.metal.entity.User">
         select id,
                username,
+               password,
                sex,
-               user_img,
+               img_id,
                email,
                create_time,
                update_time
         from user
         where username = #{userName};
     </select>
+
+    <!--id查询用户信息-->
+    <select id="selectUserById" resultMap="userMap">
+        select * from user where id =#{userId};
+    </select>
+    <!--修改密码-->
+    <update id="updatePassWord">
+        update user set
+                        password = #{password},
+                        update_time =#{updateTime}
+where id =#{id};
+
+    </update>
+    <!--修改头像-->
+    <update id="updatePicture" >
+        update user set
+                        img_id = #{imgId},
+                        update_time = #{updateTime}
+        where id =#{id};
+
+    </update>
+    <!--修改个人信息-->
+    <update id="updatePersona" >
+        update user set
+
+                        sex=#{sex},
+                        likename =#{likeName},
+                        email = #{email},
+                        update_time = #{updateTime}
+
+        where id =#{id};
+
+    </update>
 </mapper>

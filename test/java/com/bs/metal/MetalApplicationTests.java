@@ -1,13 +1,20 @@
 package com.bs.metal;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 @SpringBootTest
-class MetalApplicationTests {
+
+@RunWith(SpringRunner.class)
+
+public class  MetalApplicationTests {
 
     @Test
-    void contextLoads() {
-    }
+    public void addUser() {
 
+
+
+    }
 }

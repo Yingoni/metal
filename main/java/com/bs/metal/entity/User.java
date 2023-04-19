@@ -3,6 +3,7 @@ package com.bs.metal.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -38,5 +39,12 @@ public class User {
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 '}';
+    }
+
+@Data
+    public static class UpdatePassBean extends User{
+        private Integer id;
+        private String password;
+        private String passnum;
     }
 }

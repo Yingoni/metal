@@ -23,7 +23,7 @@ public class UserController {
      * @param user
      * @return
      */
-    @PostMapping("/metal/register")
+    @PostMapping("/metal/user/register")
     public ResultVO register(@RequestBody User user){
         ResultVO resultVO = userService.toRegister(user);
         return resultVO;
@@ -35,12 +35,51 @@ public class UserController {
      * @param password
      * @return
      */
-    @GetMapping("/metal/login")
-    public ResultVO toLogin(@RequestParam(value = "username",required = true) String username ,
-                            @RequestParam(value = "password",required = true) String password){
+    @GetMapping("/metal/user/login")
+    public ResultVO toLogin( @RequestParam String username ,
+                             @RequestParam String password){
         ResultVO resultVO = userService.checkLogin(username, password);
         return resultVO;
     }
 
+    /**
+     * 修改密码
+     */
+    @PostMapping("/metal/user/updatePassword")
+    public ResultVO updatePassWord(@RequestBody User.UpdatePassBean  upb){
+      ResultVO resultVO =  userService.updatePass(upb);
+        return  resultVO;
+    }
+    /**
+     * 保存头像
+     */
+
+    @PostMapping("/metal/user/updateImg")
+    public ResultVO updateImg(@RequestBody User user){
+        ResultVO resultVO =  userService.updateImg(user);
+        return  resultVO;
+    }
+
+
+    /**
+     * 修改个人信息
+     */
+
+    @PostMapping("/metal/user/updatePersona")
+    public ResultVO updatePersona(@RequestBody User user){
+        ResultVO resultVO =  userService.updatePersona(user);
+        return  resultVO;
+    }
+
+    /**
+     * 查询用户
+     * @param id
+     * @return
+     */
+    @GetMapping("/metal/user/select")
+    public ResultVO selectUser(@RequestParam("id") Integer id){
+     ResultVO resultVO =   userService.selectUser(id);
+        return resultVO;
+    }
 
 }

@@ -6,9 +6,24 @@
 
 <mapper namespace="com.bs.metal.Dao.FileInfoDAO">
 
+    <!--保存上传图片-->
+<insert id="save" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+insert into file_info(
+                      originName,
+                      fileName,
+                      create_time
+                      )
+values (
+        #{originName},
+        #{fileName},
+        #{createTime}
+       );
 
+</insert>
 
-
+<select id="selectById" resultType="com.bs.metal.entity.FileInfo" >
+    select * from file_info where id = #{id};
+</select>
 
 
 </mapper>

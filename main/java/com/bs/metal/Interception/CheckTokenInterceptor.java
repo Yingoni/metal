@@ -33,9 +33,9 @@ public class CheckTokenInterceptor implements HandlerInterceptor {
 */
 
         //从请求头 header中获取token
-        //String token1 = request.getHeader("token");
+      String token = request.getHeader("token");
         //从请求行  参数中获取token
-        String token = request.getParameter("token");
+       // String token = request.getParameter("token");
         if (token ==null){
             //提示先登录
             doResponse(response,ResultVO.resultVO(ResultCodeEnum.USER_NO_LOGIN));

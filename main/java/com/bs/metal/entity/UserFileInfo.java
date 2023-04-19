@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * 用户和识别图片的中间类
+ *鉴别前和鉴别后的文件名一致，
  *
  * @auther Bongo
  * @create 2023/4/15 18:16
@@ -21,7 +22,7 @@ public class UserFileInfo {
     //    用户id
     private Integer userId;
     //    上传图片的id 用  “,” 隔开
-    private List<Long> oldFiles;
-    //    下载图片的id 用  “,” 隔开
-    private List<Long> newFiles;
+    private String files;
+
+    private List<Long> fileList;
 }

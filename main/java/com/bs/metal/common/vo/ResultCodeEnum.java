@@ -9,7 +9,8 @@ public enum ResultCodeEnum {
     USER_PASSWORD_ERROR("2003","密码错误"),
     USER_NO_LOGIN("2004","未登录"),
     USER_NOTIME_LOGIN("2005","登录过期"),
-    TOKEN_NO("2006","登录过程中遇到错误  请重新登录");
+    TOKEN_NO("2006","登录过程中遇到错误  请重新登录"),
+    FILE_NULL("2007","文件名为空");
 
     public String code;// 返回码
     public String msg;//错误消息

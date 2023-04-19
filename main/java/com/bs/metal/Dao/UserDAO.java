@@ -12,5 +12,13 @@ public interface UserDAO {
     int saveUser(User user);
     //根据用户名查询用户
     User selectName(String name);
+    //根据id查询用户
+    User selectUserById(@Param("userId") Integer userId);
+    //修改密码
+    int updatePassWord(User user);
 
+    //修改头像
+    int updatePicture(User user);
+
+    int updatePersona(User user);
 }
