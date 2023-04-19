@@ -89,11 +89,91 @@ public class UserServiceImpl implements UserService {
                         .signWith(SignatureAlgorithm.HS256, "Xyy123456") //设置加密方式和密码
                         .compact();
 
-                return ResultVO.resultVO(ResultCodeEnum.SUCCESS, token);
+                return new ResultVO("0",token,user);
             } else {
                 return ResultVO.resultVO(ResultCodeEnum.USER_PASSWORD_ERROR);
             }
         }
+    }
+
+    /**
+     * 修改密码
+     * @return
+     */
+    @Override
+    public ResultVO updatePass(User.UpdatePassBean upb) {
+        Integer userId = upb.getId();
+        String passnum = upb.getPassnum();
+        String password = upb.getPassword();
+        User user =  userDAO.selectUserById( userId);
+       if (user == null ){
+           return ResultVO.resultVO(ResultCodeEnum.USER_NO_LOGIN);
+       }else{
+           String pass = MD5Util.md5(passnum);
+           if (pass.equals(user.getPassword())){
+               String passMD5 = MD5Util.md5(password);
+               user.setPassword(passMD5);
+                user.setUpdateTime(new Date());
+               int row = userDAO.updatePassWord(user);
+               if (row>0){
+                   return ResultVO.resultVO(ResultCodeEnum.SUCCESS);
+               }else{
+                   log.error("新密码入库失败");
+                   return ResultVO.resultVO(ResultCodeEnum.ERROR);
+               }
+
+           }else {
+               return ResultVO.resultVO(ResultCodeEnum.USER_PASSWORD_ERROR);
+           }
+       }
+
+    }
+
+    /**
+     * 修改用户个人信息
+     * @param user
+     * @return
+     */
+    @Override
+    public ResultVO updatePersona(User user) {
+        user.setUpdateTime(new Date());
+       int  row = userDAO.updatePersona(user);
+       if (row>0){
+           return ResultVO.resultVO(ResultCodeEnum.SUCCESS);
+       }
+        return ResultVO.resultVO(ResultCodeEnum.PARAM_ERROR);
+    }
+
+    /**
+     * 保存用户imgId
+     * @param user
+     * @return
+     */
+    @Override
+    public ResultVO updateImg(User user) {
+        user.setUpdateTime(new Date());
+        int i = userDAO.updatePicture(user);
+        if (i>0){
+            return ResultVO.resultVO(ResultCodeEnum.SUCCESS);
+        }else {
+            return new ResultVO("40001","保存失败",null);
+        }
+    }
+
+    /**
+     * 查询用户信息
+     * @param id
+     * @return
+     */
+    @Override
+    public ResultVO selectUser(Integer id) {
+        User user = userDAO.selectUserById(id);
+        if (user !=null){
+            return ResultVO.resultVO(ResultCodeEnum.SUCCESS,user);
+        }else {
+            return ResultVO.resultVO(ResultCodeEnum.ERROR);
+        }
+
     }
 
 }
