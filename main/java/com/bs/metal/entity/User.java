@@ -3,6 +3,9 @@ package com.bs.metal.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 
 /**
@@ -12,27 +15,36 @@ import lombok.NoArgsConstructor;
 @Data //自动生成成员变量的set和get方法
 @NoArgsConstructor//无参构造函数
 @AllArgsConstructor//所有有参构造函数
-public class User  {
-    private Integer id;
-    private String userName;
-    private String userPw;
-    private String sex;
-    private String institude;
-    private String email;
-    private String researchArea;
-    private String type;
+public class User {
+    private Integer id; //主键  id
+    private String userName;  //用户名
+    private String password; // 密码
+    private String sex;//性别
+    private String likeName; //昵称
+    private Long imgId; // 头像 id
+    private String email; // 邮箱地址
+    private Date createTime; // 创建时间
+    private Date updateTime; //修改时间
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", userName='" + userName + '\'' +
-                ", userPw='" + userPw + '\'' +
+                ", password='" + password + '\'' +
                 ", sex='" + sex + '\'' +
-                ", institude='" + institude + '\'' +
+                ", likeName='" + likeName + '\'' +
+                ", imgId=" + imgId +
                 ", email='" + email + '\'' +
-                ", researchArea='" + researchArea + '\'' +
-                ", type='" + type + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
                 '}';
+    }
+
+@Data
+    public static class UpdatePassBean extends User{
+        private Integer id;
+        private String password;
+        private String passnum;
     }
 }

@@ -19,6 +19,11 @@ spring:
       maximum-pool-size: 100
       connection-timeout: 3000
 
+  servlet:
+    multipart: #设置上传文件大小
+     enabled: true
+     max-file-size: 20MB #设置单个文件的大小
+     max-request-size: 20MB #设置单次请求的文件的总大小
 
 #mybatis
 mybatis:

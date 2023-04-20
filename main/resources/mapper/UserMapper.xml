@@ -5,18 +5,86 @@
 
 
 <mapper namespace="com.bs.metal.Dao.UserDAO">
-<select id="selectNameCount" parameterType="string" resultType="int">
-    select count(0) from user where username = #{name};
-</select>
+    <!--用户resultMap-->
+    <resultMap id="userMap" type="com.bs.metal.entity.User">
+        <id column="id" property="id"/>
+        <result column="username" property="userName"/>
+        <result column="password" property="password"/>
+        <result column="sex" property="sex"/>
+        <result column="img_id" property="imgId"/>
+        <result column="email" property="email"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
 
-    <insert id="saveUser" >
-        insert into user(username,userpw,sex,institude,email,researchArea,type)
-values (#{userName},#{userPw},#{sex},#{institude},#{email},#{researchArea},#{type});
+    <!--根据用户名查询数量-->
+    <select id="selectNameCount" parameterType="string" resultType="int">
+        select count(0)
+        from user
+        where username = #{name};
+    </select>
+    <!--保存新用户:-->
+    <insert id="saveUser"  useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into user(username,
+                         password,
+                         likename,
+                         create_time,
+                         update_time
+                         )
+        values (#{userName},
+                #{password},
+                #{likeName},
+                #{createTime},
+                #{updateTime}
+                );
 
 
     </insert>
-
+    <!--根据用户名查询用户-->
     <select id="selectName" resultType="com.bs.metal.entity.User">
-        select id,username,sex,institude,email,researchArea,type from user where username=#{userName};
+        select id,
+               username,
+               password,
+               likename,
+               sex,
+               img_id,
+               email,
+               create_time,
+               update_time
+        from user
+        where username = #{userName};
     </select>
+
+    <!--id查询用户信息-->
+    <select id="selectUserById" resultMap="userMap">
+        select * from user where id =#{userId};
+    </select>
+    <!--修改密码-->
+    <update id="updatePassWord">
+        update user set
+                        password = #{password},
+                        update_time =#{updateTime}
+where id =#{id};
+
+    </update>
+    <!--修改头像-->
+    <update id="updatePicture" >
+        update user set
+                        img_id = #{imgId},
+                        update_time = #{updateTime}
+        where id =#{id};
+
+    </update>
+    <!--修改个人信息-->
+    <update id="updatePersona" >
+        update user set
+
+                        sex=#{sex},
+                        likename =#{likeName},
+                        email = #{email},
+                        update_time = #{updateTime}
+
+        where id =#{id};
+
+    </update>
 </mapper>

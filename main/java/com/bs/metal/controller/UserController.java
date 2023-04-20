@@ -1,6 +1,6 @@
 package com.bs.metal.controller;
 
-import com.bs.metal.common.Result;
+import com.bs.metal.common.vo.ResultVO;
 import com.bs.metal.entity.User;
 import com.bs.metal.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -21,18 +21,73 @@ public class UserController {
     /**
      *注册
      * @param user
-     * @param request
      * @return
      */
-    @PostMapping("/metal/register")
-    public Result<User> register(@RequestBody User user, HttpServletRequest request){
-        if (StringUtils.isEmpty(user.getUserName()) ||StringUtils.isEmpty(user.getUserPw())){
-            return Result.error("2003", "账号或密码为空");
-        }
-        User register = userService.add(user);
-        HttpSession session = request.getSession();
-        session.setAttribute("USER",register);
-        session.setMaxInactiveInterval(60*60*24);
-        return Result.success(register);
+    @PostMapping("/metal/user/register")
+    public ResultVO register(@RequestBody User user){
+        ResultVO resultVO = userService.toRegister(user);
+        return resultVO;
     }
+
+    /**
+     * 登录
+     * @param username
+     * @param password
+     * @return
+     */
+    @GetMapping("/metal/user/login")
+    public ResultVO toLogin( @RequestParam String username ,
+                             @RequestParam String password){
+        ResultVO resultVO = userService.checkLogin(username, password);
+        return resultVO;
+    }
+    /**
+     * 微信登录
+     */
+    @PostMapping("/metal/user/wxreg")
+    public ResultVO wxLogin(@RequestBody User user){
+        ResultVO resultVO = userService.wxLogin(user);
+        return resultVO;
+    }
+
+    /**
+     * 修改密码
+     */
+    @PostMapping("/metal/user/updatePassword")
+    public ResultVO updatePassWord(@RequestBody User.UpdatePassBean  upb){
+      ResultVO resultVO =  userService.updatePass(upb);
+        return  resultVO;
+    }
+    /**
+     * 保存头像
+     */
+
+    @PostMapping("/metal/user/updateImg")
+    public ResultVO updateImg(@RequestBody User user){
+        ResultVO resultVO =  userService.updateImg(user);
+        return  resultVO;
+    }
+
+
+    /**
+     * 修改个人信息
+     */
+
+    @PostMapping("/metal/user/updatePersona")
+    public ResultVO updatePersona(@RequestBody User user){
+        ResultVO resultVO =  userService.updatePersona(user);
+        return  resultVO;
+    }
+
+    /**
+     * 查询用户
+     * @param id
+     * @return
+     */
+    @GetMapping("/metal/user/select")
+    public ResultVO selectUser(@RequestParam("id") Integer id){
+     ResultVO resultVO =   userService.selectUser(id);
+        return resultVO;
+    }
+
 }
