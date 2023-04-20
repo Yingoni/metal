@@ -176,4 +176,47 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    /**
+     * wx用户登录
+     * 默认密码123456
+     * 用户名为 微信名
+     * 头像id不设置，在前端已经存在前端库里
+     * 微信登录中前端中nickName在数据库和username一致
+     * 就认为是同一个用户
+     * @param user
+     * @return
+     */
+    @Override
+    public ResultVO wxLogin(User user) {
+        String name   = user.getLikeName();
+        User user1 = userDAO.selectName(name);
+        if (user1 != null) {
+            //使用jwt规则生成token
+            //生成jwt容器
+            JwtBuilder builder = Jwts.builder();
+            String token = builder.setSubject(user1.getUserName())//主题 token中 携带数据 用用户名作为token名
+                    .setIssuedAt(new Date())//token生成时间
+                    .setId(user.getId() + "")//设置token id为用户id + “”
+                    .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 24 * 1000))//设置token过期时间 24小时
+                    .signWith(SignatureAlgorithm.HS256, "Xyy123456") //设置加密方式和密码
+                    .compact();
+
+            return new ResultVO("0",token,user1);
+        } else {
+            String pass = "123456";
+            String md5 = MD5Util.md5(pass);
+            user.setPassword(md5);
+            user.setUserName(user.getLikeName());
+            user.setCreateTime(new Date());
+            user.setUpdateTime(new Date());
+          int i =userDAO.saveUser(user);
+            if (i>0){
+                ResultVO resultVO = wxLogin(user);
+                return resultVO;
+            }else {
+                return ResultVO.resultVO(ResultCodeEnum.ERROR);
+            }
+            }
+    }
+
 }

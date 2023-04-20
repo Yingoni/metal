@@ -41,6 +41,14 @@ public class UserController {
         ResultVO resultVO = userService.checkLogin(username, password);
         return resultVO;
     }
+    /**
+     * 微信登录
+     */
+    @PostMapping("/metal/user/wxreg")
+    public ResultVO wxLogin(@RequestBody User user){
+        ResultVO resultVO = userService.wxLogin(user);
+        return resultVO;
+    }
 
     /**
      * 修改密码

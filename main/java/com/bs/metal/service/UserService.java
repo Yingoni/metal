@@ -17,4 +17,7 @@ public interface UserService {
     ResultVO updateImg(User user);
 //查询用户信息
     ResultVO selectUser(Integer id);
+
+    //微信用户登录
+    ResultVO wxLogin(User user);
 }
