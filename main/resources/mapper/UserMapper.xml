@@ -23,8 +23,8 @@
         from user
         where username = #{name};
     </select>
-    <!--保存新用户:头像尚未开发-->
-    <insert id="saveUser">
+    <!--保存新用户:-->
+    <insert id="saveUser"  useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         insert into user(username,
                          password,
                          likename,
@@ -45,6 +45,7 @@
         select id,
                username,
                password,
+               likename,
                sex,
                img_id,
                email,

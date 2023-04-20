@@ -5,6 +5,7 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import com.bs.metal.Dao.FileInfoDAO;
 import com.bs.metal.Dao.UserDAO;
+import com.bs.metal.common.util.PyUtil;
 import com.bs.metal.common.vo.ResultCodeEnum;
 import com.bs.metal.common.vo.ResultVO;
 import com.bs.metal.entity.FileInfo;
@@ -77,7 +78,7 @@ public class FileInfoServiceImpl implements FileInfoService {
             return new ResultVO("1003", "文件上传失败", null);
         }
         System.out.println(fileName);
-        /*try {
+        try {
             //调用识别
             PyUtil.toPy();
             //原始文件路径
@@ -90,7 +91,7 @@ public class FileInfoServiceImpl implements FileInfoService {
             log.error("IO异常", e);
         } catch (InterruptedException e) {
             log.error("调用失败", e);
-        }*/
+        }
 
         return new ResultVO("0", "图片上传成功", fileId);
     }
@@ -110,7 +111,7 @@ public class FileInfoServiceImpl implements FileInfoService {
         if (fileInfo == null) {
             return new ResultVO("1002", "未找到文件", null);
         }
-        byte[] bytes = FileUtil.readBytes( FILE_PATH+ fileInfo.getFileName());
+        byte[] bytes = FileUtil.readBytes( NEW_FILE_PATH+ fileInfo.getFileName());
         response.reset();
         //设置response的header
 

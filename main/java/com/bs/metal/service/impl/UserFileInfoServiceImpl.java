@@ -96,7 +96,7 @@ public class UserFileInfoServiceImpl implements UserFileInfoService {
      */
     @Override
     public ResultVO selectFileTimes(Integer fileid) {
-        if (fileid ==null ){
+        if (fileid == null ){
             return new ResultVO("3001","未识别过图片",null);
         }else {
             Date time = userFileInfoDAO.selectFilesTime(fileid);
